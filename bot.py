@@ -6,7 +6,7 @@ bot = commands.Bot(command_prefix="$", intents=discord.Intents.all())
 CHANNEL_ID = 958397523217756213
 BIBMO_NAME = "bimbo#0660"
 
-
+#i've made a change
 
 @bot.event
 async def on_ready():
