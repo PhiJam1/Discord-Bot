@@ -21,5 +21,17 @@ async def on_message(message):
         if (message.author != cred.BIBMO_NAME):
             await message.channel.send("got it from: " + str(message.author))
             await message.author.send('👋')
+    if (message.content == "$members"):
+        await channel.send("People in this server: ")
+        for member in message.guild.members:
+            await channel.send(member)
+    if (message.content == "$word"):
+        await wordTesting(message)
 
-bot.run(BOT_TOKEN)
+async def wordTesting(message):
+    ## lets try some file IO
+    for guild in bot.guilds:
+        await message.channel.send(message.guild.name)
+
+
+bot.run(cred.BOT_TOKEN)
