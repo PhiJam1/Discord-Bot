@@ -6,6 +6,7 @@ bot = commands.Bot(command_prefix="$", intents=discord.Intents.all())
 CHANNEL_ID = 958397523217756213
 
 #i've made a change
+#i've now made another change
 
 @bot.event
 async def on_ready():
@@ -21,4 +22,4 @@ async def on_message(message):
             await message.channel.send("got it from: " + str(message.author))
             await message.author.send('👋')
 
-bot.run(cred.BOT_TOKEN)
+bot.run(BOT_TOKEN)
