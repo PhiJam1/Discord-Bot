@@ -7,6 +7,7 @@ CHANNEL_ID = 958397523217756213
 BIBMO_NAME = "bimbo#0660"
 
 #i've made a change
+#i've now made another change
 
 @bot.event
 async def on_ready():
