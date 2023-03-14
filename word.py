@@ -10,7 +10,7 @@ class word(object):
     Other ideas to add on, a bot that tracks messages in general to make a leaderboard
     based on who talks the most or extra points for asking questions. Then a voting/poll bot that
     attacks your dms looking for answers.'''
-    def __init__(self, _term, _authors) -> None:
+    def __init__(self, _term, _authors, _term_use_total, _total_msg, _mes_with_term) -> None:
         self.term = _term
         self.authors = _authors
         self.term_use_total = []
@@ -34,3 +34,10 @@ class word(object):
         for i in range(len(self.authors)):
             if (self.authors[i] == author):
                 return self.msg_with_term[i]
+    
+    def set_term(self, _term):
+        self.term = _term
+    def set_authors(self, _authors):
+        self.authors = _authors
+    def set_term_use_total(self, use_total):
+        self.term_use_total = use_total
