@@ -19,12 +19,17 @@ class Member(object):
     
     #This will increment total messages when this user sends a message
     def update_message_history(self, msg):
-        pass
-        #see how many and which terms it hass
-
-        #update total msgs
-
-        #update total questions
         
-        #update pts system.
-    
+        #see how many and which terms it has
+        
+        #update total msgs
+        self.total_msg += 1
+        #update total questions
+        if (msg.find("?") != -1):
+            self.total_questions += 1
+            self.pts += (len(msg) * 1.5)
+        else:
+            self.pts += len(msg)
+        
+
+#ideas: add an anrgy level for all caps messages
