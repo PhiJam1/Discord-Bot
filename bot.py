@@ -8,7 +8,7 @@ import Member
 bot = commands.Bot(command_prefix="$", intents=discord.Intents.all())
 CHANNEL_ID = 958397523217756213
 SERVER_ID = 958397522768982099
-#using this means this code will only work for 1 server
+#^using this means this code will only work for 1 server
 #that will need to be changed soon
 members = []
 loaded_data = False
@@ -45,6 +45,9 @@ async def on_message(message):
         await add_word(message)
     if (message.content[:9] == "$seewords"):
         await display_words_tracked(message.channel)
+    if (message.content[:11] == "$seestatsof"):
+        await get_user_stats(message)
+        return
     if (message.content[:9] == "$seestats"):
         await get_use_of_word(message)
 
@@ -63,7 +66,7 @@ async def add_word(message):
             return
     #Now add this as a term to all members
     for member in members:
-        member.terms_to_track.append(msg_content)
+        member.add_term(msg_content)
     ## lets try some file IO
     #for guild in bot.guilds:
         #await message.channel.send(message.guild.name)
@@ -83,6 +86,16 @@ async def get_use_of_word(message):
     for member in members:
         await message.channel.send(member.get_total_stats())
         print("line 84")
-
-
+async def get_user_stats(message):
+    for member in members:
+        if (message.content.find(str(member.user_id)) >= 0):
+            await message.channel.send(member.get_total_stats())
+async def get_stats_of_term(message):
+    msg = message[5:]
+    await message.channel.send("Word: " + msg)
+    for i in range(len(members[0].terms_to_track)):
+        if (members[0].terms_to_track[i] == msg):
+            for member in members:
+                await message.channel.send(member.user_name)
+                await message.channel.send(member.get_stats_of_word(i))
 bot.run(cred.BOT_TOKEN)
