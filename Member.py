@@ -21,15 +21,18 @@ class Member(object):
     def update_message_history(self, msg):
         
         #see how many and which terms it has
-        
+        for i in range(len(self.terms_to_track)):
+            self.term_total_use[i] += msg.count(self.terms_to_track)
         #update total msgs
         self.total_msg += 1
         #update total questions
         if (msg.find("?") != -1):
             self.total_questions += 1
-            self.pts += (len(msg) * 1.5)
+            self.points += (len(msg) * 1.5)
         else:
-            self.pts += len(msg)
-        
-
+            self.points += len(msg)
+    def get_total_stats(self):
+        msg = "Stats for " + self.user_name + "\n"
+        msg += "Number of messages sent: " + str(self.total_msg)
+        return msg
 #ideas: add an anrgy level for all caps messages

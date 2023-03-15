@@ -37,7 +37,7 @@ async def on_message(message):
             await message.author.send('👋')
     
     #Actual commands
-    scan_msg(message.content)
+    scan_msg(message) #need to get stats on every message sent
     if (message.content == "$members"):
         await get_members(message)
         
@@ -45,6 +45,8 @@ async def on_message(message):
         await add_word(message)
     if (message.content[:9] == "$seewords"):
         await display_words_tracked(message.channel)
+    if (message.content[:9] == "$seestats"):
+        await get_use_of_word(message)
 
 async def get_members(message):
     await message.channel.send("People in this server: ")
@@ -72,9 +74,15 @@ async def display_words_tracked(channel):
         await channel.send(word)
 
 def scan_msg(message):
-    if (message[0] != "$"):
+    if (message.content[0] != "$"):
         for member in members:
-            member.update_message_history(message)
+            if (member.user_name == message.author.name):
+                member.update_message_history(message.content)
+
+async def get_use_of_word(message):
+    for member in members:
+        await message.channel.send(member.get_total_stats())
+        print("line 84")
 
 
 bot.run(cred.BOT_TOKEN)
