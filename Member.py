@@ -50,4 +50,17 @@ class Member(object):
         if (self.total_msg == 0):
             return 0
         return self.term_total_use[index] / self.total_msg
+    def get_data(self):
+        s = self.user_name + ", "
+        s += str(self.user_id) + ", "
+        for term in self.terms_to_track:
+            s += term + ":"
+        s += ", "
+        for use in self.term_total_use:
+            s += str(use) + "$"
+        s += ", "
+        s += str(self.total_msg) + ", "
+        s += str(self.total_questions) + ", "
+        s += str(self.points)
+        return s
 #ideas: add an anrgy level for all caps messages

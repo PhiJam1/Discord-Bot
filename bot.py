@@ -8,6 +8,7 @@ import Member
 bot = commands.Bot(command_prefix="$", intents=discord.Intents.all())
 CHANNEL_ID = 958397523217756213
 SERVER_ID = 958397522768982099
+file_name = "word_data.txt"
 #^using this means this code will only work for 1 server
 #that will need to be changed soon
 members = []
@@ -50,7 +51,8 @@ async def on_message(message):
         return
     if (message.content[:9] == "$seestats"):
         await get_use_of_word(message)
-
+    if (message.content == "$save"):
+        save_all_data()
 async def get_members(message):
     await message.channel.send("People in this server: ")
     for member in message.guild.members:
@@ -67,9 +69,7 @@ async def add_word(message):
     #Now add this as a term to all members
     for member in members:
         member.add_term(msg_content)
-    ## lets try some file IO
-    #for guild in bot.guilds:
-        #await message.channel.send(message.guild.name)
+
 
 async def display_words_tracked(channel):
     await channel.send("Here is a list of all words being tracked")
@@ -81,6 +81,7 @@ def scan_msg(message):
         for member in members:
             if (member.user_name == message.author.name):
                 member.update_message_history(message.content)
+    save_all_data()
 
 async def get_use_of_word(message):
     for member in members:
@@ -98,4 +99,12 @@ async def get_stats_of_term(message):
             for member in members:
                 await message.channel.send(member.user_name)
                 await message.channel.send(member.get_stats_of_word(i))
+def save_all_data():
+    file = open(file_name, "w")
+    for  member in members:
+        file.write(member.get_data())
+        file.write("\n")
+    file.write("END")
+    #file.flush()
+    file.close()
 bot.run(cred.BOT_TOKEN)
