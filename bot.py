@@ -6,8 +6,8 @@ import Member
 
 # Global Variables
 bot = commands.Bot(command_prefix="$", intents=discord.Intents.all())
-CHANNEL_ID = 694909060285333557
-SERVER_ID = 694909060285333554
+CHANNEL_ID = 609923829384984867
+SERVER_ID = 6949238293849844454
 file_name = "word_data.txt"
 #^using this means this code will only work for 1 server
 #that will need to be changed soon
