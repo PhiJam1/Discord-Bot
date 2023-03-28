@@ -14,19 +14,18 @@ class Member(object):
     #This will add a new word to be tracked to their word list
     #It will also create new indexes for other relevent fields
     def add_term(self, word):
-        print("line 17")
         self.terms_to_track.append(word)
         self.term_total_use.append(0)
     
     #This will increment total messages when this user sends a message
     def update_message_history(self, msg):
-        
+
         #see how many and which terms it has
         for i in range(len(self.terms_to_track)):
-            print(str(i) + " " + str(len(self.term_total_use)) + " " + str(len(self.term_total_use)))
+            #print(str(i) + " " + str(len(self.term_total_use)) + " " + str(len(self.term_total_use)))
             self.term_total_use[i] += msg.count(self.terms_to_track[i])
         #update total msgs
-        self.total_msg += 1
+        self.total_msg += len(msg.split(" "))
         #update total questions
         if (msg.find("?") != -1):
             self.total_questions += 1
@@ -34,18 +33,18 @@ class Member(object):
         else:
             self.points += len(msg)
     def get_total_stats(self):
-        msg = "**Stats for " + self.user_name + "**\n"
-        msg += "*Number of messages sent:* " + str(self.total_msg) + "\n"
-        msg += "*Number of questions asked:* " + str(self.total_questions) + "\n"
-        msg += "*Points:* " + str(self.points) + "\n"
+        msg = "**Stats for " + self.user_name + "**,\n"
+        msg += "*Messages Sent:* " + str(self.total_msg)
+        msg += " *Questions Asked:* " + str(self.total_questions) + "\n"
+        #msg += "*Points:* " + str(self.points) + "\n"
         for i in range(len(self.terms_to_track)):
-            msg += "Used " + str(self.terms_to_track[i]) + " " + str(self.term_total_use[i]) + (" once\n" if self.term_total_use[i] == 1 else " times\n")
-            msg += "That's " + str(self.rate_of_term_use(i)) + "% of their total words\n"
+            msg += "Used *" + str(self.terms_to_track[i]) + "* " + ("once\n" if self.term_total_use[i] == 1 else (str(self.term_total_use[i]) + " times - "))
+            #msg += "That's " + str(self.rate_of_term_use(i)) + "% of their total words\n"
         return msg
 
     def get_stats_of_word(self, index):
         msg = "Used " + str(self.terms_to_track[index]) + " " + str(self.term_total_use[index]) + (" once\n" if self.term_total_use[index] == 1 else " times\n")
-        msg += "That's " + str(self.rate_of_term_use(index)) + "% of their total words\n"
+        #msg += "That's " + str(self.rate_of_term_use(index)) + "% of their total words\n"
     def rate_of_term_use(self, index):
         if (self.total_msg == 0):
             return 0
