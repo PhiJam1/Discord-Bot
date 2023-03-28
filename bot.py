@@ -1,13 +1,12 @@
 from discord.ext import commands
 import discord
-import word
 import cred
 import Member
 
 # Global Variables
 bot = commands.Bot(command_prefix="$", intents=discord.Intents.all())
-CHANNEL_ID = 958397523217756213
-SERVER_ID = 958397522768982099
+CHANNEL_ID = 694909060285333557
+SERVER_ID = 694909060285333554
 file_name = "word_data.txt"
 #^using this means this code will only work for 1 server
 #that will need to be changed soon
