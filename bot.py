@@ -45,8 +45,9 @@ async def on_ready():
         members.append(Member.Member(user_name, user_id, terms_to_track, term_total_use, total_msg, total_questions, points))
     infile.close()
     loaded_data = True
-    #for user in guild.members:
-        #members.append(Member.Member(user.name, user.id, [], [], 0, 0, 0))
+    if (members == []):
+        for user in guild.members:
+            members.append(Member.Member(user.name, user.id, [], [], 0, 0, 0))
     await channel.send("Data Loaded")
 
 @bot.event
